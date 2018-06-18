@@ -7,6 +7,7 @@ var jwt = require('jsonwebtoken'),
     bcrypt = require("bcrypt"),
     auth_config = require('../auth/auth_config'),
     constants = require('../constants');
+var TokenResult = require('../objs/TokenResult');
 
 exports.verify_token = function (req, res, next) {
     var token = req.headers['authorization'];
@@ -46,6 +47,7 @@ exports.get_token = function (req, res) {
 
     var requestkey = req.headers['requestkey'];
     var applicationid = req.headers['applicationid'];
+    var token = '';
 
     jwt.verify(requestkey, auth_config.key, function (err, decode) {
 
@@ -55,14 +57,13 @@ exports.get_token = function (req, res) {
 
         var deviceid = decode.deviceid;
         if (!deviceid) return json(constants.RESULT_DEVICE_NOTFOUND);
-        return res.json({
-            token: jwt.sign(
-                {
-                    applicationid: applicationid
-                    , deviceid: deviceid
-                }
-                , auth_config.key
-                , { expiresIn: auth_config.exp })
-        })
+        token = jwt.sign(
+            {
+                applicationid: applicationid
+                , deviceid: deviceid
+            }
+            , auth_config.key
+            , { expiresIn: auth_config.exp });
+        return res.json(new TokenResult(0, '', token));
     });
 };

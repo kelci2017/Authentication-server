@@ -4,7 +4,7 @@ function constants() { }
 
 constants.prototype.RESULT_UNKNOWN = new BaseResult(1, "unknown error");
 constants.prototype.RESULT_NETWORK = new BaseResult(2, "network error");
-constants.prototype.RESULT_SUCCESS = new BaseResult(6, "success");
+constants.prototype.RESULT_SUCCESS = new BaseResult(0, "success");
 constants.prototype.RESULT_TOKEN_EXPIRED = new BaseResult(11, "token expired");
 constants.prototype.RESULT_SIGNATURE_FAILED = new BaseResult(12, "signature failed");
 constants.prototype.RESULT_TOKEN_NOTFOUND = new BaseResult(13, 'token not found');
