@@ -9,6 +9,10 @@ var jwt = require('jsonwebtoken'),
     constants = require('../constants');
 var TokenResult = require('../objs/TokenResult');
 
+var dateTime = require('node-datetime');
+var dt = dateTime.create();
+dt.format('m/d/Y H:M:S');
+
 exports.verify_token = function (req, res, next) {
     var token = req.headers['authorization'];
     if (!token) {
@@ -36,8 +40,9 @@ exports.verify_token = function (req, res, next) {
 
     jwt.verify(token, auth_config.key, function (err, decode) {
         if (err) {
-            console.log(log_tag, 'invalid signature');
-            return res.json(constants.RESULT_SIGNATURE_FAILED);
+            console.log(log_tag, 'invalid signature  ' + new Date(dt.now()));
+            // if (err) return res.json(constants.RESULT_SIGNATURE_FAILED);
+            if (err) return res.status(401).send();
         }
         res.json(constants.RESULT_SUCCESS);
     });
@@ -53,7 +58,8 @@ exports.get_token = function (req, res) {
 
         if (!requestkey) return res.json(constants.RESULT_REQUEST_KEY_INVALID);
         if (!applicationid) return res.json(constants.RESULT_APPLICATION_NOTFOUND);
-        if (err) return res.json(constants.RESULT_SIGNATURE_FAILED);
+        // if (err) return res.json(constants.RESULT_SIGNATURE_FAILED);
+        if (err) return res.status(401).send();
 
         var deviceid = decode.deviceid;
         if (!deviceid) return json(constants.RESULT_DEVICE_NOTFOUND);
