@@ -6,7 +6,7 @@ var TOKEN_SCHEME = "Bearer";
 var jwt = require('jsonwebtoken'),
     bcrypt = require("bcrypt"),
     auth_config = require('../auth/auth_config'),
-    constants = require('../constants');
+    constants = require('../objs/constants');
 var TokenResult = require('../objs/TokenResult');
 
 var dateTime = require('node-datetime');
@@ -61,12 +61,13 @@ exports.get_token = function (req, res) {
         // if (err) return res.json(constants.RESULT_SIGNATURE_FAILED);
         if (err) return res.status(401).send();
 
-        var deviceid = decode.deviceid;
-        if (!deviceid) return json(constants.RESULT_DEVICE_NOTFOUND);
+        var email = decode.email;
+        console.log("the email is: " + email);
+        if (!email) return json(constants.RESULT_EMAIL_NOTFOUND);
         token = jwt.sign(
             {
                 applicationid: applicationid
-                , deviceid: deviceid
+                , email: email
             }
             , auth_config.key
             , { expiresIn: auth_config.exp });
