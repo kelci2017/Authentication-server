@@ -25,15 +25,13 @@ exports.verify_token = function (req, res, next) {
         return res.json(constants.RESULT_SCHEME_NOTCORRECT);
     }
     if (typeof req.headers.authorization !== 'string') {
-        res.sendStatus(400);
-        return;
+        return res.json(constants.RESULT_SCHEME_NOTCORRECT);
     }
 
     var tokens = req.headers.authorization.split(' ');
 
     if (tokens.length < 2) {
-        res.sendStatus(400);
-        return;
+        return res.json(constants.RESULT_SCHEME_NOTCORRECT);
     }
 
     var token = tokens[1];
@@ -42,9 +40,9 @@ exports.verify_token = function (req, res, next) {
         if (err) {
             console.log(log_tag, 'invalid signature  ' + new Date(dt.now()));
             // if (err) return res.json(constants.RESULT_SIGNATURE_FAILED);
-            if (err) return res.status(401).send();
+            return res.json(constants.RESULT_TOKEN_EXPIRED);
         }
-        res.json(constants.RESULT_SUCCESS);
+        return res.json(constants.RESULT_SUCCESS);
     });
 };
 
