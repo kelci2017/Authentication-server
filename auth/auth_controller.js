@@ -42,7 +42,7 @@ exports.verify_token = function (req, res, next) {
             // if (err) return res.json(constants.RESULT_SIGNATURE_FAILED);
             return res.json(constants.RESULT_TOKEN_EXPIRED);
         }
-        next();
+        return res.json(constants.RESULT_SUCCESS);
     });
 };
 

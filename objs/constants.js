@@ -11,6 +11,6 @@ constants.prototype.RESULT_TOKEN_NOTFOUND = new BaseResult(23, 'token not found'
 constants.prototype.RESULT_REQUEST_KEY_INVALID = new BaseResult(24, 'Request key invalid');
 constants.prototype.RESULT_SCHEME_NOTCORRECT = new BaseResult(25, 'token sheme not correct');
 constants.prototype.RESULT_APPLICATION_NOTFOUND = new BaseResult(26, 'application not found');
-constants.prototype.RESULT_EMAIL_NOTFOUND = new BaseResult(27, 'email not found');
+constants.prototype.RESULT_EMAIL_NOTFOUND = new BaseResult(17, 'email not found');
 
 module.exports = constants.prototype;
