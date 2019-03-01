@@ -4,6 +4,7 @@
 * The authentication server is independent with the app server, it could be shared with many app servers
 * The app server call the getToken to fetch token and call the vertifyToken for authentication
 * The token use the Bearer scheme
+* The token expiration time is 2 days, it can be changed in the auth/auth_config.js
 * The authentication server and the app server has the same auth_config key (Pls refer to another repo https://github.com/kelci2017/App-server for the app server)
 
 ## Instructions
