@@ -4,7 +4,6 @@ var log_tag = "Authentication";
 var TOKEN_SCHEME = "Bearer";
 
 var jwt = require('jsonwebtoken'),
-    bcrypt = require("bcrypt"),
     auth_config = require('../auth/auth_config'),
     constants = require('../objs/constants');
 var TokenResult = require('../objs/TokenResult');
@@ -60,7 +59,6 @@ exports.get_token = function (req, res) {
         if (err) return res.status(401).send();
 
         var email = decode.email;
-        console.log("the email is: " + email);
         if (!email) return json(constants.RESULT_EMAIL_NOTFOUND);
         token = jwt.sign(
             {
